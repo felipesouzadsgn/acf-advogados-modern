@@ -1,42 +1,39 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+import { 
+  Scales, 
+  Heart, 
+  Shield, 
+  Car, 
+  Briefcase, 
+  Scroll, 
+  Lightning, 
+  Buildings,
+  Users,
+  Clock,
+  DeviceMobile,
+  GraduationCap,
+  MapPin,
+  Phone,
+  Envelope,
+  Clock as ClockIcon,
+  FacebookLogo,
+  InstagramLogo,
+  LinkedinLogo,
+  WhatsappLogo,
+  ArrowRight,
+  Check,
+  Star,
+  CaretDown,
+  List,
+  X
+} from '@phosphor-icons/react'
 import './App.css'
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeArea, setActiveArea] = useState(null)
-  const [visibleSections, setVisibleSections] = useState(new Set())
-  const [isLoading, setIsLoading] = useState(true)
-  
-  const heroRef = useRef(null)
-  const sectionsRef = useRef([])
 
-  // Loading simulation
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 500)
-  }, [])
-
-  // Intersection Observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleSections((prev) => new Set([...prev, entry.target.id]))
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    )
-
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
-  // Scroll handler
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
@@ -45,7 +42,6 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Smooth scroll
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
     if (element) {
@@ -56,84 +52,84 @@ function App() {
 
   const areasDeAtuacao = [
     { 
-      icon: '⚖️', 
+      icon: Scales,
       title: 'Direito Médico', 
       desc: 'Defesa de profissionais e pacientes em questões de responsabilidade civil e ética médica.',
-      color: '#00d4ff',
+      color: '#0066cc',
       stats: '150+ casos'
     },
     { 
-      icon: '👨‍👩‍👧‍👦', 
+      icon: Heart,
       title: 'Direito de Família', 
       desc: 'Divórcios, guarda de filhos, pensão alimentícia e planejamento sucessório.',
-      color: '#ff6b6b',
+      color: '#cc3366',
       stats: '300+ famílias'
     },
     { 
-      icon: '🛡️', 
+      icon: Shield,
       title: 'Direito do Consumidor', 
       desc: 'Proteção contra práticas abusivas, cancelamentos indevidos e cobranças ilegais.',
-      color: '#4ecdc4',
+      color: '#009966',
       stats: '500+ ações'
     },
     { 
-      icon: '🚗', 
+      icon: Car,
       title: 'Direito de Trânsito', 
       desc: 'Defesa em multas, suspensão de CNH, processos administrativos e crimes de trânsito.',
-      color: '#ffe66d',
+      color: '#ff9900',
       stats: '200+ defesas'
     },
     { 
-      icon: '💼', 
+      icon: Briefcase,
       title: 'Direito do Trabalho', 
       desc: 'Reclamações trabalhistas, rescisões, assédio moral e direitos dos trabalhadores.',
-      color: '#a8e6cf',
+      color: '#6633cc',
       stats: '400+ processos'
     },
     { 
-      icon: '📋', 
+      icon: Scroll,
       title: 'Direito Civil', 
       desc: 'Contratos, indenizações, responsabilidade civil e direitos patrimoniais.',
-      color: '#ffd93d',
+      color: '#cc6600',
       stats: '600+ contratos'
     },
     { 
-      icon: '⚡', 
+      icon: Lightning,
       title: 'Direito Penal', 
       desc: 'Defesa criminal, audiências de custódia, crimes contra a pessoa e patrimônio.',
-      color: '#ff8b94',
+      color: '#cc0000',
       stats: '100+ defesas'
     },
     { 
-      icon: '🏢', 
+      icon: Buildings,
       title: 'Direito Imobiliário', 
       desc: 'Locações, despejos, usucapião, condomínios e regularização de imóveis.',
-      color: '#c7ceea',
+      color: '#006666',
       stats: '250+ imóveis'
     },
   ]
 
   const diferenciais = [
     { 
-      icon: '🎯', 
+      icon: Users,
       title: 'Atendimento Humanizado', 
       desc: 'Tratamos cada caso com a atenção única que ele merece, entendendo suas necessidades.',
       number: '01'
     },
     { 
-      icon: '⚡', 
+      icon: Clock,
       title: 'Agilidade', 
       desc: 'Respostas rápidas e soluções eficientes para seus problemas jurídicos.',
       number: '02'
     },
     { 
-      icon: '📱', 
+      icon: DeviceMobile,
       title: 'Tecnologia', 
       desc: 'Acompanhamento online do seu processo com transparência total.',
       number: '03'
     },
     { 
-      icon: '🎓', 
+      icon: GraduationCap,
       title: 'Especialização', 
       desc: 'Equipe especializada em diversas áreas do Direito para melhor atendê-lo.',
       number: '04'
@@ -161,27 +157,16 @@ function App() {
     }
   ]
 
-  if (isLoading) {
-    return (
-      <div className="loading-screen">
-        <div className="loading-spinner"></div>
-        <p>Carregando...</p>
-      </div>
-    )
-  }
-
   return (
     <div className="app">
-      {/* Skip Link for Accessibility */}
       <a href="#main-content" className="skip-link">
         Pular para o conteúdo principal
       </a>
 
-      {/* Navbar - Glassmorphism */}
-      <nav className={`navbar ${scrolled ? 'scrolled glass' : ''}`} role="navigation" aria-label="Navegação principal">
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation" aria-label="Navegação principal">
         <div className="nav-container">
           <div className="logo" onClick={() => scrollToSection('inicio')} style={{ cursor: 'pointer' }}>
-            <span className="logo-icon" aria-hidden="true">⚖️</span>
+            <Scales className="logo-icon" weight="fill" />
             <div className="logo-text">
               <span className="logo-main">ACF</span>
               <span className="logo-sub">Advogados Associados</span>
@@ -213,24 +198,17 @@ function App() {
             aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={mobileMenuOpen}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            {mobileMenuOpen ? <X size={24} /> : <List size={24} />}
           </button>
         </div>
       </nav>
 
       <main id="main-content">
-        {/* Hero Section */}
-        <section 
-          id="inicio" 
-          className={`hero ${visibleSections.has('inicio') ? 'visible' : ''}`}
-          ref={(el) => { sectionsRef.current[0] = el; heroRef.current = el }}
-        >
+        <section id="inicio" className="hero">
           <div className="hero-bg">
             <div className="gradient-orb orb-1" aria-hidden="true"></div>
             <div className="gradient-orb orb-2" aria-hidden="true"></div>
-            <div className="grid-pattern" aria-hidden="true"></div>
+            <div className="pattern-grid" aria-hidden="true"></div>
           </div>
           
           <div className="hero-content">
@@ -260,50 +238,45 @@ function App() {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <span aria-hidden="true">📱</span> Fale com um Advogado
+                <WhatsappLogo size={20} weight="fill" />
+                Fale com um Advogado
               </a>
               <button 
                 className="btn btn-secondary"
                 onClick={() => scrollToSection('atuacao')}
               >
-                <span aria-hidden="true">⚖️</span> Nossas Áreas
+                <Scales size={20} />
+                Nossas Áreas
               </button>
             </div>
             
             <div className="hero-stats">
               <div className="stat-item">
-                <span className="stat-number" data-count="3">3+</span>
+                <span className="stat-number">3+</span>
                 <span className="stat-label">Anos de Experiência</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number" data-count="127">127</span>
-                <span className="stat-label">Avaliações 5⭐</span>
+                <span className="stat-number">127</span>
+                <span className="stat-label">Avaliações 5 estrelas</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number" data-count="8">8</span>
+                <span className="stat-number">8</span>
                 <span className="stat-label">Áreas de Atuação</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number" data-count="1500">1500+</span>
+                <span className="stat-number">1500+</span>
                 <span className="stat-label">Casos Atendidos</span>
               </div>
             </div>
           </div>
           
           <div className="scroll-indicator" aria-hidden="true">
-            <div className="mouse">
-              <div className="wheel"></div>
-            </div>
+            <CaretDown size={24} />
             <span>Scroll</span>
           </div>
         </section>
 
-        {/* About Section */}
-        <section 
-          id="sobre" 
-          className={`about ${visibleSections.has('sobre') ? 'visible' : ''}`}
-          ref={(el) => sectionsRef.current[1] = el}
-        >
+        <section id="sobre" className="about">
           <div className="container">
             <div className="section-header">
               <span className="section-tag">QUEM SOMOS</span>
@@ -340,32 +313,28 @@ function App() {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <span aria-hidden="true">📍</span> Ver no Mapa
+                    <MapPin size={18} />
+                    Ver no Mapa
                   </a>
                 </div>
               </div>
               
-              <div className="about-card glass">
-                <div className="card-icon-large" aria-hidden="true">⚖️</div>
+              <div className="about-card">
+                <Scales className="card-icon-large" weight="fill" />
                 <h3>Por que nos escolher?</h3>
                 <ul className="about-list">
-                  <li><span className="check">✓</span> Atendimento personalizado</li>
-                  <li><span className="check">✓</span> Equipe especializada</li>
-                  <li><span className="check">✓</span> Tecnologia e inovação</li>
-                  <li><span className="check">✓</span> Transparência total</li>
-                  <li><span className="check">✓</span> Resultados comprovados</li>
+                  <li><Check size={18} weight="bold" className="check-icon" /> Atendimento personalizado</li>
+                  <li><Check size={18} weight="bold" className="check-icon" /> Equipe especializada</li>
+                  <li><Check size={18} weight="bold" className="check-icon" /> Tecnologia e inovação</li>
+                  <li><Check size={18} weight="bold" className="check-icon" /> Transparência total</li>
+                  <li><Check size={18} weight="bold" className="check-icon" /> Resultados comprovados</li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Areas de Atuacao Section */}
-        <section 
-          id="atuacao" 
-          className={`atuacao ${visibleSections.has('atuacao') ? 'visible' : ''}`}
-          ref={(el) => sectionsRef.current[2] = el}
-        >
+        <section id="atuacao" className="atuacao">
           <div className="container">
             <div className="section-header">
               <span className="section-tag">ÁREAS DE ATUAÇÃO</span>
@@ -374,31 +343,31 @@ function App() {
             </div>
             
             <div className="areas-grid">
-              {areasDeAtuacao.map((area, i) => (
-                <div 
-                  key={i} 
-                  className={`area-card ${activeArea === i ? 'active' : ''}`}
-                  onMouseEnter={() => setActiveArea(i)}
-                  onMouseLeave={() => setActiveArea(null)}
-                  style={{'--area-color': area.color}}
-                >
-                  <div className="area-icon" aria-hidden="true">{area.icon}</div>
-                  <div className="area-stats">{area.stats}</div>
-                  <h3>{area.title}</h3>
-                  <p>{area.desc}</p>
-                  <div className="card-shine" aria-hidden="true"></div>
-                </div>
-              ))}
+              {areasDeAtuacao.map((area, i) => {
+                const IconComponent = area.icon
+                return (
+                  <div 
+                    key={i} 
+                    className={`area-card ${activeArea === i ? 'active' : ''}`}
+                    onMouseEnter={() => setActiveArea(i)}
+                    onMouseLeave={() => setActiveArea(null)}
+                    style={{'--area-color': area.color}}
+                  >
+                    <div className="area-icon-wrapper" style={{ color: area.color }}>
+                      <IconComponent size={40} weight="fill" />
+                    </div>
+                    <div className="area-stats">{area.stats}</div>
+                    <h3>{area.title}</h3>
+                    <p>{area.desc}</p>
+                    <div className="card-shine" aria-hidden="true"></div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
 
-        {/* Diferenciais Section */}
-        <section 
-          id="diferenciais" 
-          className={`diferenciais ${visibleSections.has('diferenciais') ? 'visible' : ''}`}
-          ref={(el) => sectionsRef.current[3] = el}
-        >
+        <section id="diferenciais" className="diferenciais">
           <div className="container">
             <div className="section-header">
               <span className="section-tag">DIFERENCIAIS</span>
@@ -406,24 +375,24 @@ function App() {
             </div>
             
             <div className="diferenciais-grid">
-              {diferenciais.map((item, i) => (
-                <div key={i} className="diferencial-card">
-                  <span className="diferencial-number">{item.number}</span>
-                  <div className="diferencial-icon" aria-hidden="true">{item.icon}</div>
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </div>
-              ))}
+              {diferenciais.map((item, i) => {
+                const IconComponent = item.icon
+                return (
+                  <div key={i} className="diferencial-card">
+                    <span className="diferencial-number">{item.number}</span>
+                    <div className="diferencial-icon">
+                      <IconComponent size={48} weight="fill" />
+                    </div>
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section 
-          id="depoimentos" 
-          className={`testimonials ${visibleSections.has('depoimentos') ? 'visible' : ''}`}
-          ref={(el) => sectionsRef.current[4] = el}
-        >
+        <section id="depoimentos" className="testimonials">
           <div className="container">
             <div className="section-header">
               <span className="section-tag">DEPOIMENTOS</span>
@@ -434,7 +403,9 @@ function App() {
               {testimonials.map((testimonial, i) => (
                 <div key={i} className="testimonial-card">
                   <div className="testimonial-rating">
-                    {'⭐'.repeat(testimonial.rating)}
+                    {Array(testimonial.rating).fill(null).map((_, idx) => (
+                      <Star key={idx} size={20} weight="fill" />
+                    ))}
                   </div>
                   <p className="testimonial-text">"{testimonial.text}"</p>
                   <div className="testimonial-author">
@@ -450,7 +421,6 @@ function App() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="cta-section">
           <div className="cta-bg" aria-hidden="true">
             <div className="gradient-orb orb-3"></div>
@@ -467,22 +437,19 @@ function App() {
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
-                  <span aria-hidden="true">💬</span> WhatsApp
+                  <WhatsappLogo size={24} weight="fill" />
+                  WhatsApp
                 </a>
                 <a href="tel:13996393134" className="btn btn-secondary btn-large">
-                  <span aria-hidden="true">📞</span> Ligar Agora
+                  <Phone size={24} />
+                  Ligar Agora
                 </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section 
-          id="contato" 
-          className={`contato ${visibleSections.has('contato') ? 'visible' : ''}`}
-          ref={(el) => sectionsRef.current[5] = el}
-        >
+        <section id="contato" className="contato">
           <div className="container">
             <div className="section-header">
               <span className="section-tag">CONTATO</span>
@@ -492,7 +459,7 @@ function App() {
             <div className="contato-grid">
               <div className="contato-info">
                 <div className="info-item">
-                  <span className="info-icon" aria-hidden="true">📍</span>
+                  <MapPin size={28} className="info-icon" />
                   <div>
                     <h4>Endereço</h4>
                     <p>Rua São Paulo, n. 41 - cj. 1510<br />Vila Belmiro - Santos/SP<br />CEP: 11075-330</p>
@@ -500,7 +467,7 @@ function App() {
                 </div>
                 
                 <div className="info-item">
-                  <span className="info-icon" aria-hidden="true">📱</span>
+                  <DeviceMobile size={28} className="info-icon" />
                   <div>
                     <h4>Telefone / WhatsApp</h4>
                     <p>(13) 99639-3134</p>
@@ -508,7 +475,7 @@ function App() {
                 </div>
                 
                 <div className="info-item">
-                  <span className="info-icon" aria-hidden="true">✉️</span>
+                  <Envelope size={28} className="info-icon" />
                   <div>
                     <h4>E-mail</h4>
                     <p>contato@acf.adv.br</p>
@@ -516,7 +483,7 @@ function App() {
                 </div>
                 
                 <div className="info-item">
-                  <span className="info-icon" aria-hidden="true">🕐</span>
+                  <ClockIcon size={28} className="info-icon" />
                   <div>
                     <h4>Horário de Atendimento</h4>
                     <p>Segunda a Sexta: 9h às 19h</p>
@@ -525,19 +492,19 @@ function App() {
                 
                 <div className="social-links">
                   <a href="https://www.facebook.com/advogadosacf/" target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <span aria-hidden="true">📘</span> Facebook
+                    <FacebookLogo size={20} weight="fill" /> Facebook
                   </a>
                   <a href="https://www.instagram.com/acf_adv" target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <span aria-hidden="true">📸</span> Instagram
+                    <InstagramLogo size={20} weight="fill" /> Instagram
                   </a>
                   <a href="https://www.linkedin.com/company/acf-adv/" target="_blank" rel="noopener noreferrer" className="social-btn">
-                    <span aria-hidden="true">💼</span> LinkedIn
+                    <LinkedinLogo size={20} weight="fill" /> LinkedIn
                   </a>
                 </div>
               </div>
               
               <div className="contato-cta">
-                <div className="cta-card glass">
+                <div className="cta-card">
                   <h3>Consulta Gratuita</h3>
                   <p>Avaliamos seu caso sem compromisso. Entre em contato pelo WhatsApp e tire suas dúvidas.</p>
                   <a 
@@ -546,12 +513,13 @@ function App() {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <span aria-hidden="true">💬</span> Iniciar Conversa
+                    <WhatsappLogo size={24} weight="fill" />
+                    Iniciar Conversa
                   </a>
                   <div className="cta-features">
-                    <span>✓ Atendimento 24h</span>
-                    <span>✓ Resposta Rápida</span>
-                    <span>✓ 100% Seguro</span>
+                    <span><Check size={16} weight="bold" /> Atendimento 24h</span>
+                    <span><Check size={16} weight="bold" /> Resposta Rápida</span>
+                    <span><Check size={16} weight="bold" /> 100% Seguro</span>
                   </div>
                 </div>
               </div>
@@ -560,13 +528,12 @@ function App() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="footer">
         <div className="container">
           <div className="footer-content">
             <div className="footer-brand">
               <div className="footer-logo">
-                <span className="logo-icon" aria-hidden="true">⚖️</span>
+                <Scales className="logo-icon" weight="fill" />
                 <div>
                   <span className="footer-logo-main">ACF</span>
                   <span className="footer-logo-sub">Advogados Associados</span>
@@ -603,7 +570,6 @@ function App() {
         </div>
       </footer>
 
-      {/* WhatsApp Float Button */}
       <a 
         href="https://wa.me/5513996393134" 
         className="whatsapp-float" 
@@ -611,7 +577,7 @@ function App() {
         rel="noopener noreferrer"
         aria-label="Fale conosco pelo WhatsApp"
       >
-        <span aria-hidden="true">💬</span>
+        <WhatsappLogo size={32} weight="fill" />
       </a>
     </div>
   )
