@@ -361,12 +361,17 @@ body {
   padding: 8rem var(--spacing-md) 4rem;
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.hero.visible {
+.hero.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero.animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -690,12 +695,17 @@ body {
    ============================================ */
 section {
   padding: var(--spacing-xl) 0;
-  opacity: 0;
-  transform: translateY(40px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-section.visible {
+section.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+section.animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
